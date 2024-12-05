@@ -1,4 +1,4 @@
-usuarios: nome, email, senha
+usuarios: id, nome, email, senha
 tasks: titulo, descrição, data de criação, data limite
 
 usuarios podem: editar nome, email, senha, titulo da task, descrição, data de criação (se for modificada), data limite
