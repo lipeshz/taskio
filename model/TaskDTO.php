@@ -1,5 +1,5 @@
 <?php 
-class TaskDTO{
+class Task{
     private $id_task;
     private $nome_criador;
     private $descricao;
