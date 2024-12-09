@@ -12,5 +12,15 @@ class UsuarioDAO{
         $stmt->execute();
         return $pdo->lastInsertId();
     }
+
+    public function buscarPorEmail($email){
+        $pdo = Database::getInstance()->getPDO();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>
