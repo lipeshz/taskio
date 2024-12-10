@@ -14,7 +14,7 @@ session_start();
             <label for="nome-usuario">NOME DE USUÁRIO</label>
             <input type="text" name="nome" id="nome-usuario" value="<?php echo $_SESSION['nome_err'] ?? ''; ?>">
             <?php 
-            if(isset($_SESSION['err_nome'])) {;
+            if(isset($_SESSION['err_nome'])) {
                 echo '<span class="error">' . $_SESSION['err_nome'] . '</span>';
                 unset($_SESSION['err_nome']);
             }

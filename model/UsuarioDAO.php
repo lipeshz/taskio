@@ -21,6 +21,6 @@ class UsuarioDAO{
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
+    
 }
 ?>

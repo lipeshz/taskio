@@ -1,6 +1,5 @@
 <?php 
 require('../model/UsuarioDAO.php');
-$usuario = new Usuario();
 session_start();
 ?>
 <!DOCTYPE html>
@@ -14,8 +13,14 @@ session_start();
     <a href="cadastro.php">CADASTRO</a>
     <a href="login.php">ENTRAR</a>
     <?php 
-    echo "<h1>Bem-vindo," . $usuario->getNome();
-    echo "</h1>"
+    // echo "<h1>Bem-vindo," . $usuario->getNome();
+    // echo "</h1>";
+    // echo "<h1>E-Mail:" . $usuario->getEmail();
+    // echo "</h1>";
+    // echo "<h1>Senha:" . $usuario->getSenha();
+    // echo "</h1>";
+    // echo "<h1>ID:" . $usuario->getIdUsuario();
+    // echo "</h1>";
     ?>
 </body>
 </html>
