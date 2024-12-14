@@ -1,5 +1,8 @@
 <?php
 session_start(); 
+if(isset($_SESSION['id_usuario'])){
+    header('Location:../view/index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
