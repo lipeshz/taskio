@@ -1,7 +1,8 @@
 <?php 
 class Task{
     private $id_task;
-    private $nome_criador;
+    private $titulo;
+    private $id_criador;
     private $descricao;
     private $data_criacao;
     private $data_limite;
@@ -14,12 +15,20 @@ class Task{
         return $this->id_task;
     }
 
-    public function setNomeCriador($nome_criador){
-        $this->nome_criador = $nome_criador;
+    public function setTitulo($titulo){
+        $this->titulo = $titulo;
     }
 
-    public function getNomeCriador(){
-        return $this->nome_criador;
+    public function getTitulo(){
+        return $this->titulo;
+    }
+
+    public function setIdCriador($id_criador){
+        $this->id_criador = $id_criador;
+    }
+
+    public function getIdCriador(){
+        return $this->id_criador;
     }
 
     public function setDescricao($descricao){
