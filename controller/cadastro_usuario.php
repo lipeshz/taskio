@@ -1,45 +1,43 @@
 <?php
+header('Content-Type: application/json');
 require '../model/UsuarioDAO.php';
 session_start();
 
-$erros = [];
-$old_values = [];
 $dao = new UsuarioDAO();
 
 $email = trim($_POST['email']);
 $senha = trim($_POST['senha']);
 $conf_senha = trim($_POST['conf_senha']);
+$resposta = [];
 
 if($_POST['nome'] == ""){
-    $erros['err_nome'] = "O campo é obrigatório";
+    $resposta['errors']['nome'] = "Nome não pode estar vazio!";
 }
 
 if($dao->buscarPorEmail($email)){
-    $erros['err_email'] = "E-Mail já cadastrado.";
+    $resposta['errors']['email'] = "E-Mail já cadastrado!";
 }else if(empty($email)){
-    $erros['err_email'] = "O campo é obrigatório";
+    $resposta['errors']['email'] = "E-Mail não pode estar vazio!";
 }
 
 if($senha != $conf_senha){
-    $erros['err_senha'] = "As senhas fornecidas não condizem.";
+    $resposta['errors']['senha'] = "Senhas não coincidem!";
 }else if(empty($senha) && empty($conf_senha)){
-    $erros['err_senha'] = "O campo é obrigatório.";
+    $resposta['errors']['senha'] = "Senhas não podem estar vazias!";
 }
 
-if(empty($erros)){
+if(empty($resposta)){
+    $resposta['sucesso'] = true;
     $usuario = new Usuario();
     $usuario->setNome($_POST['nome']);
     $usuario->setEmail($_POST['email']);
     $usuario->setSenha(password_hash($_POST['senha'], PASSWORD_DEFAULT));
 
     $dao->inserir($usuario);
-    header('Location:../view/index.php');
+    echo json_encode($resposta);
     exit;
 }else{
-    $old_values['nome_err'] = $_POST['nome'];
-    $old_values['email_err'] = $_POST['email'];
-    $_SESSION = array_merge($erros, $old_values);
-    header('Location:../view/cadastro.php', true, 303);
+    echo json_encode($resposta);
     exit;
 }
 ?>

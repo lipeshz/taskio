@@ -1,26 +1,36 @@
 <?php 
+header('Content-Type: application/json');
 require_once '../model/UsuarioDAO.php';
 session_start();
 $dao = new UsuarioDAO();
-$usuario = $dao->buscarPorEmail($_POST['email']);
-$erros = [];
+$resposta = [];
 
-if($usuario){
-    if(password_verify($_POST['senha'], $usuario['senha'])){
-        $_SESSION['id_usuario'] = $usuario['id_usuario'];
-        $_SESSION['email'] = $usuario['email'];
-        header('Location:../view/index.php');
-    }else{
-        $erros['senha_err_login'] = "Senha ou e-mail incorretos.";
+if(empty($_POST['email'])){
+    $resposta['errors']['email'] = "Forneça o E-Mail.";
+}
+
+if(empty($_POST['senha'])){
+    $resposta['errors']['senha'] = "Forneça a senha!";
+}
+
+if(empty($resposta)){
+    $usuario = $dao->buscarPorEmail($_POST['email']);
+    if($usuario){
+        if(password_verify($_POST['senha'], $usuario['senha'])){
+            $resposta['sucesso'] = true;
+            $_SESSION['id_usuario'] = $usuario['id_usuario'];
+            $_SESSION['email'] = $usuario['email'];
+            echo json_encode($resposta);
+            exit;
+        }else{
+            $resposta['errors']['senha'] = "Senha ou e-mail incorretos.";
+            echo json_encode($resposta);
+            exit;
+        }
     }
-}else if(empty($_POST['email'])){
-    $erros['email_err_login'] = "Forneça o E-Mail.";
 }else{
-    $erros['email_err_login'] = "E-Mail não cadastrado.";
+    echo json_encode($resposta);
+    exit;
 }
 
-if(!empty($erros)){
-    header('Location:../view/login.php');
-    $_SESSION = array_merge($erros);
-}
 ?>  

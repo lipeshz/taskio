@@ -14,7 +14,7 @@ if(isset($_SESSION['id_usuario'])){
     <title>Task.io</title>
 </head>
 <body>
-    <a href="cadastro.php">CADASTRO</a>
+    <a href="cadastro_usuario.php">CADASTRO</a>
     <a href="login.php">ENTRAR</a>
 </body>
 </html>
