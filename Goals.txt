@@ -1,0 +1,3 @@
+- Usuário poder alterar/excluir conta
+- Visualização do status pela cor
+- Usuário poder apagar tarefas

@@ -6,7 +6,7 @@ document.getElementById('email-usuario').addEventListener('blur', function(){
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '../controller/AJAX_verificar_email.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
+        xhr.send('email=' + encodeURIComponent(email));
         xhr.onload = function(){
             if(xhr.status === 200){
                 const resposta = JSON.parse(xhr.responseText);
@@ -19,7 +19,6 @@ document.getElementById('email-usuario').addEventListener('blur', function(){
                 }
             }
         }
-        xhr.send('email=' + encodeURIComponent(email));
     }
 })
 

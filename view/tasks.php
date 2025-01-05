@@ -18,11 +18,15 @@ if(!isset($_SESSION['id_usuario'])){
 </head>
     <body>
        <button id="button-modal-open">ADICIONAR +</button>
+       <button id="conta-usuario">CONTA</button>
+       <br>
        <dialog id="dialog-modal" aria-modal="true" role="dialog">
             <button id="button-modal-close">X</button>
-            <form action="../controller/cadastro_task.php" method="post">
+            <form id="form-cadastro-task" method="post">
                 <label for="titulo-task">TÍTULO</label>
                 <input type="text" name="titulo" id="titulo-task">
+                <br>
+                <span id="err_titulo"></span>
                 <br>
                 <br>
                 <label for="descricao-task">DESCRIÇÃO</label>
@@ -30,21 +34,18 @@ if(!isset($_SESSION['id_usuario'])){
                 <br>
                 <br>
                 <label for="data-limite">DATA LIMITE</label>
-                <input type="date" name="data_limite" id="data-limite">
+                <input type="datetime-local" name="data_limite" id="data-limite">
+                <br>
+                <span id="err_data"></span>
                 <br>
                 <br>
-                <input type="submit" value="CRIAR">
+                <input type="submit" value="CRIAR" id="criar">
             </form>
          </dialog>
-        <?php 
-        if($task == []){
-           echo '<h1 style="text-align:center;">Você não tem tarefas!</h1>';
-        }else{
-            foreach($task as $tasks){
-                echo $tasks['titulo'];
-            }
-        }
-        ?>
+         <div id="tasks">
+
+         </div>
         <script src="../js/open_modal.js"></script>
+        <script src="../js/AJAX_cadastro_task.js"></script>
     </body>
 </html>

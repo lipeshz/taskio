@@ -1,24 +1,40 @@
 <?php 
 require_once('../model/TaskDAO.php');
 session_start();
-$dao = new TaskDAO();
-$task = new Task();
-$erros = [];
 
-if(!isset($_SESSION['id_usuario'])){
-    header('Location:../view/login.php');
-}else{
-    if(empty($_POST['titulo'])){
-        $erros['titulo_vazio'] = "Insira um título!";
-    }
+$resposta = [];
+$data_atual = $_POST['data_atual'];
 
-    if(empty($_POST['data_limite'])){
-        $erros['data_limite_vazia'] = "Insira uma data!";
-    }
+if(empty($_POST['titulo'])){
+    $resposta['errors']['err_titulo'] = "Título não pode estar vazio!";
+}
+if(empty($_POST['data_limite'])){
+    $resposta['errors']['err_data'] = "Insira uma data!";
+}else if($_POST['data_limite'] <= $data_atual){
+    $resposta['errors']['err_data'] = "A data não pode ser anterior ao dia de hoje!!cadast";
 }
 
-if(!empty($erros)){
-    $_SESSION = array_merge($erros);
-    header('Location:../view/tasks.php');
+if(empty($resposta)){
+    $resposta['sucesso'] = true;
+    $dao = new TaskDAO();
+    $task = new Task();
+    $task->setTitulo($_POST['titulo']);
+    $task->setIdCriador($_SESSION['id_usuario']);
+    $task->setdescricao($_POST['descricao']);
+    $task->setDataCriacao($data_atual);
+    $task->setDataLimite($_POST['data_limite']);
+    $dao->inserir_task($task);
+
+    echo json_encode(['sucesso' => true,
+        'tarefa' => [
+            'titulo' => $_POST['titulo'],
+            'descricao' => $_POST['descricao'],
+            'data_limite' => $_POST['data_limite']
+        ]
+    ]);
+    exit;
+}else{
+    echo json_encode($resposta);
+    exit;
 }
 ?>
