@@ -47,5 +47,6 @@ if(!isset($_SESSION['id_usuario'])){
          </div>
         <script src="../js/open_modal.js"></script>
         <script src="../js/AJAX_cadastro_task.js"></script>
+        <script src="../js/AJAX_load_task.js"></script>
     </body>
 </html>

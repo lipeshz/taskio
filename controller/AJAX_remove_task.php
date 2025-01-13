@@ -8,10 +8,9 @@ $resposta = [];
 
 if($task){
     $dao->excluir($_POST['data-token']);
-    $resposta['token_sucesso'] = $_POST['data-token'];
+    $resposta['token_sucesso'] = true;
     echo json_encode($resposta);
 }else{
-    $resposta['token_erro'] = $_POST['data-token'];
-    echo json_encode($resposta);
+    echo json_encode(['error' => 'Requisição inválida ou token inválido.']);
 }
 ?>
