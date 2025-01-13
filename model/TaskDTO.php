@@ -1,6 +1,7 @@
 <?php 
 class Task{
     private $id_task;
+    private $token_task;
     private $titulo;
     private $id_criador;
     private $descricao;
@@ -13,6 +14,14 @@ class Task{
 
     public function getId_task(){
         return $this->id_task;
+    }
+
+    public function setToken($token_task){
+        $this->token_task = $token_task;
+    }
+
+    public function getToken(){
+        return $this->token_task;
     }
 
     public function setTitulo($titulo){

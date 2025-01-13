@@ -24,6 +24,7 @@ if(empty($resposta)){
     $task->setDataCriacao($data_atual);
     $task->setDataLimite($_POST['data_limite']);
     $dao->inserir_task($task);
+    
 
     echo json_encode(['sucesso' => true,
         'tarefa' => [

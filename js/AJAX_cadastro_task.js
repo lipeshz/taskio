@@ -1,21 +1,24 @@
 let erros = {};
 const modal = document.querySelector("#dialog-modal");
-function loadTask(){
 
+function loadTask(){
     fetch('../controller/AJAX_load_task.php')
         .then(response => response.json())
         .then(resposta => {
             if(resposta.tarefas){
                 const taskList = document.getElementById('tasks');
+                const tarefas = resposta.tarefas
                 taskList.innerHTML = '';
 
                 modal.close();
-                resposta.tarefas.forEach(tarefa => {
-                    const newTaskList = document.createElement('div');
+                tarefas.forEach(tarefa => {
+                    let newTaskList = document.createElement('div');
+                    newTaskList.setAttribute('data-token', tarefa.token_task);
                     const button_delete = document.createElement('button');
                     button_delete.textContent = 'Excluir';                    
                     button_delete.addEventListener('click', () => {
-                    console.log('APAGADO' + tarefa.id_task);
+                        removeTask(tarefa.token_task, newTaskList);
+                        // newTaskList.remove();
                     }) 
                     if(!tarefa.descricao){
                         newTaskList.textContent = `${tarefa.titulo} | ${tarefa.data_limite}`;
@@ -34,8 +37,27 @@ function loadTask(){
 
             }
         })
+        .catch(console.error('Erro ao carregar as tarefas'));
+}
+
+function removeTask(token, tarefa){
+    fetch('../controller/AJAX_remove_task.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({'data-token': token}),
+    })
+        .then(response => response.json())
+        .then(resposta_remove => {
+            if(resposta_remove.token_sucesso){
+                console.log(token);
+                tarefa.remove();
+            }else if(resposta_remove.token_erro){
+                console.log(resposta_load.token);
+            }
+        })
         .catch(console.log('erro'));
 }
+
 document.addEventListener('DOMContentLoaded', loadTask);
 document.getElementById('form-cadastro-task').addEventListener('submit', function(event){
     event.preventDefault();
