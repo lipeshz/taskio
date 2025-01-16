@@ -5,7 +5,10 @@ session_start();
 
 $dao = new TaskDAO();
 $tarefas = $dao->buscarPorCriador($_SESSION['id_usuario']);
-
-echo json_encode(['tarefas' => $tarefas]);
-exit;
+if($tarefas){
+    echo json_encode(['tarefas' => $tarefas]);
+    exit;
+}else{
+    echo json_encode(['error' => 'Requisião indisponível ou conexão com banco de dados interrompida.']);
+}
 ?>
