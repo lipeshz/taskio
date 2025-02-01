@@ -20,10 +20,16 @@ function loadTask(){
 
                     const button_edit = document.createElement('button');
                     button_edit.textContent = 'Editar';
-                    button_edit.addEventListener('click', () => {
+                    button_edit.setAttribute('id', 'edit');
+                    button_edit.onclick = function(){
                         modal.showModal();
-                        editTask();
-                    })
+                        document.getElementById('form-cadastro-task').setAttribute('data-action', 'update');
+                        document.getElementById('dialog-modal').setAttribute('dialog-token', tarefa.token_task);
+
+                        document.getElementById('titulo-task').value = tarefa.titulo;
+                        document.getElementById('descricao-task').value = tarefa.descricao;
+                        document.getElementById('data_limite').value = tarefa.data_limite;
+                    }
                     
                     if(!tarefa.descricao){
                         newTaskList.textContent = `${tarefa.titulo} | ${tarefa.data_limite}`;
@@ -51,7 +57,7 @@ function removeTask(token, tarefa){
     fetch('../controller/AJAX_remove_task.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({'data-token': token}),
+        body: new URLSearchParams({'data-token': token})
     })
         .then(response => response.json())
         .then(resposta_remove => {

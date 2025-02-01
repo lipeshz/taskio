@@ -22,7 +22,7 @@ if(!isset($_SESSION['id_usuario'])){
        <br>
        <dialog id="dialog-modal" aria-modal="true" role="dialog">
             <button id="button-modal-close">X</button>
-            <form id="form-cadastro-task" method="post">
+            <form id="form-cadastro-task" method="post" data-action="">
                 <label for="titulo-task">TÍTULO</label>
                 <input type="text" name="titulo" id="titulo-task">
                 <br>
@@ -33,20 +33,22 @@ if(!isset($_SESSION['id_usuario'])){
                 <input type="text" name="descricao" id="descricao-task">
                 <br>
                 <br>
-                <label for="data-limite">DATA LIMITE</label>
-                <input type="datetime-local" name="data_limite" id="data-limite">
+                <label for="data_limite">DATA LIMITE</label>
+                <input type="datetime-local" name="data_limite" id="data_limite">
                 <br>
                 <span id="err_data"></span>
                 <br>
                 <br>
-                <input type="submit" value="CRIAR" id="criar">
+                <input type="submit" value="ENVIAR" id="criar">
             </form>
          </dialog>
+         
          <div id="tasks">
 
          </div>
+        <script src="../js/AJAX_load_task.js"></script>
         <script src="../js/open_modal.js"></script>
         <script src="../js/AJAX_cadastro_task.js"></script>
-        <script src="../js/AJAX_load_task.js"></script>
+        
     </body>
 </html>

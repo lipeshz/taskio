@@ -16,6 +16,23 @@ class TaskDAO{
         $stmt->execute();
         return $pdo->lastInsertId();
     }
+    
+    public function excluir($token){
+        $pdo = Database::getInstance()->getPDO();
+        $stmt = $pdo->prepare("DELETE FROM task WHERE token_task = :token");
+        $stmt->bindValue(':token', $token);
+        $stmt->execute();
+    }
+
+    public function editar($task){
+        $pdo = Database::getInstance()->getPDO();
+        $stmt = $pdo->prepare("UPDATE task SET titulo = :titulo, descricao = :descricao, data_limite = :data_limite WHERE token_task = :token");
+        $stmt->bindValue(':titulo', $task->getTitulo());
+        $stmt->bindValue(':descricao', $task->getDescricao());
+        $stmt->bindValue(':data_limite', $task->getDataLimite());
+        $stmt->bindValue(':token', $task->getToken());
+        $stmt->execute();
+    }
 
     public function buscarPorCriador($id_usuario){
         $pdo = Database::getInstance()->getPDO();
@@ -32,14 +49,16 @@ class TaskDAO{
         $stmt->bindValue(':token', $token);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $taskData = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($taskData){
+            $task = new Task();
+            $task->setTitulo($taskData['titulo']);
+            $task->setDescricao($taskData['descricao']);
+            $task->setDataLimite($taskData['data_limite']);
+            $task->setToken($taskData['token_task']);
+            return $task;
+        }
     }
 
-    public function excluir($token){
-        $pdo = Database::getInstance()->getPDO();
-        $stmt = $pdo->prepare("DELETE FROM task WHERE token_task = :token");
-        $stmt->bindValue(':token', $token);
-        $stmt->execute();
-    }
 }
 ?>
