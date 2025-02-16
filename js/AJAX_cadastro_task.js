@@ -5,7 +5,8 @@ document.getElementById('form-cadastro-task').addEventListener('submit', functio
     const descricao = document.getElementById('descricao-task').value;
     const data_limite = document.getElementById('data_limite').value;
     const data_atual = new Date().toISOString();
-    validarCampos(titulo, descricao, data_limite, data_atual,document.getElementById('form-cadastro-task').getAttribute('data-action'));
+
+    validarCampos(titulo, descricao, data_limite, data_atual, document.getElementById('form-cadastro-task').getAttribute('data-action'));
 })
 
 function validarCampos(titulo, descricao, data_limite, data_atual, caminho){
@@ -67,17 +68,16 @@ function validarCampos(titulo, descricao, data_limite, data_atual, caminho){
     
                     if(resposta.sucesso_cadastro){
                         loadTask();
-                        const titulo = document.getElementById('titulo-task').value = '';
-                        const descricao = document.getElementById('descricao-task').value = '';
-                        const data_limite = document.getElementById('data_limite').value = '';
                     }
 
                     if(resposta.sucesso_update){
-                        // modal.close();
+                        modal.close();
                         // document.querySelector(`[data-token="${resposta.tarefa.token}"]`).textContent = `${resposta.tarefa.titulo} | ${resposta.tarefa.descricao} | ${resposta.tarefa.data_limite}`;
+
+                        updateTask(document.getElementById('dialog-modal').getAttribute('dialog-token'));
                         
-                        loadTask();
-                        //Mudar código para atualizar a tarefa via fetch para não precisar recarregar toda a lista.
+                        // loadTask();
+                        //Mudar código para atualizar a tarefa via fetch para não precisar recarregar toda a lista. Usando o token retornado, passo para a função, que irá puxar no banco de dados e atualizar com as novas informações.
                     }
                 }
             }

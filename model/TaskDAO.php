@@ -36,7 +36,7 @@ class TaskDAO{
 
     public function buscarPorCriador($id_usuario){
         $pdo = Database::getInstance()->getPDO();
-        $stmt = $pdo->prepare("SELECT * FROM task WHERE id_criador = :id_criador");
+        $stmt = $pdo->prepare("SELECT * FROM task WHERE id_criador = :id_criador ORDER BY data_limite ASC");
         $stmt->bindValue(':id_criador', $id_usuario);
         $stmt->execute();
 
@@ -49,15 +49,7 @@ class TaskDAO{
         $stmt->bindValue(':token', $token);
         $stmt->execute();
 
-        $taskData = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($taskData){
-            $task = new Task();
-            $task->setTitulo($taskData['titulo']);
-            $task->setDescricao($taskData['descricao']);
-            $task->setDataLimite($taskData['data_limite']);
-            $task->setToken($taskData['token_task']);
-            return $task;
-        }
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 }

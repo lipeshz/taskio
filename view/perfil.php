@@ -1,8 +1,13 @@
 <?php 
 require_once("../model/UsuarioDAO.php");
 session_start();
-$dao = new UsuarioDAO();
-$usuario = $dao->buscarPorEmail($_SESSION['email']);
+
+if(!isset($_SESSION['id_usuario'])){
+    header('../view/login.php');
+}else{
+    $dao = new UsuarioDAO();
+    $usuario = $dao->buscarPorEmail($_SESSION['email']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,8 +18,31 @@ $usuario = $dao->buscarPorEmail($_SESSION['email']);
     <title>Perfil</title>
 </head>
     <body>
-        <?php 
-        echo $usuario['nome'];
-        ?>        
+        <form action="" id="form-edit-user">
+            <label for="nome-usuario">Nome:</label>
+            <input type="text" name="name" id="user-name">
+            <br>
+            <br>
+            <label for="email-usuario">E-Mail:</label>
+            <input type="email" name="email" id="user-email">
+            <br>
+            <br>
+            <input type="submit" value="SALVAR">
+        </form> 
+        <br>
+        <br>
+        <form action="" id="form-edit-password">
+            <label for="senha-usuario">Senha:</label>
+            <input type="password" name="password" id="user-password">
+            <br>
+            <br>
+            <label for="confirm-user-password">Confirmar senha:</label>
+            <input type="password" name="confirm_password" id="confirm-user-password">
+            <br>
+            <br>
+            <input type="submit" value="CONFIRMAR">
+        </form>
+
+        <script src="../js/perfil.js"></script>
     </body>
 </html>

@@ -10,5 +10,6 @@ if($tarefas){
     exit;
 }else{
     echo json_encode(['error' => 'Requisião indisponível ou conexão com banco de dados interrompida.']);
+    exit;
 }
 ?>

@@ -16,10 +16,11 @@ if(empty($_POST['data_limite'])){
 }
 
 if(empty($resposta)){
+    $task = new Task();
     $dao = new TaskDAO();
     $resposta['sucesso'] = true;
     if($caminho == 'cadastro'){
-        $task = new Task();
+        
         $task->setTitulo($_POST['titulo']);
         $task->setIdCriador($_SESSION['id_usuario']);
         $task->setdescricao($_POST['descricao']);
@@ -36,7 +37,6 @@ if(empty($resposta)){
         ]);
         exit;
     }else if($_POST['caminho'] == 'update'){
-        $task = $dao->buscarPorToken($_POST['token']);
 
         if($_POST['titulo'] != $task->getTitulo()){
             $task->setTitulo($_POST['titulo']);
@@ -50,6 +50,8 @@ if(empty($resposta)){
             $task->setDataLimite($_POST['data_limite']);
         }
 
+        $task->setToken($_POST['token']);
+
         $dao->editar($task);
 
         echo json_encode(['sucesso_update' => true,
@@ -60,6 +62,8 @@ if(empty($resposta)){
                 'token' => $_POST['token']
             ]
             ]);
+            
+        exit;
     }
     
 }else{
