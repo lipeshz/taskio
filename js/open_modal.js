@@ -3,7 +3,6 @@ const button_conta = document.querySelector("#conta-usuario");
 const button_close = document.querySelector("#button-modal-close");
 const modal = document.querySelector("#dialog-modal");
 
-
 button_open.onclick = function(){
     document.getElementById('form-cadastro-task').setAttribute('data-action', 'cadastro');
     document.getElementById('titulo-task').value = '';

@@ -22,10 +22,12 @@ if(!isset($_SESSION['id_usuario'])){
             <label for="nome-usuario">Nome:</label>
             <input type="text" name="name" id="user-name">
             <br>
+            <span id="err-nome"></span>
             <br>
             <label for="email-usuario">E-Mail:</label>
             <input type="email" name="email" id="user-email">
             <br>
+            <span id="err-email"></span>
             <br>
             <input type="submit" value="SALVAR">
         </form> 
@@ -39,6 +41,7 @@ if(!isset($_SESSION['id_usuario'])){
             <label for="confirm-user-password">Confirmar senha:</label>
             <input type="password" name="confirm_password" id="confirm-user-password">
             <br>
+            <span id="err-senha"></span>
             <br>
             <input type="submit" value="CONFIRMAR">
         </form>

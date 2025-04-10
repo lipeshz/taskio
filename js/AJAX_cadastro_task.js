@@ -49,8 +49,6 @@ function validarCampos(titulo, descricao, data_limite, data_atual, caminho){
                 dados.append('caminho', caminho)
             }
     
-            //Verificação do botão
-    
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '../controller/cadastro_task.php', true);
             xhr.send(dados);

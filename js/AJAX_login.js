@@ -73,5 +73,4 @@ document.getElementById('formulario-login').addEventListener('submit', function(
 
     }
 })
-
 // Melhorar lógica da validação da senha

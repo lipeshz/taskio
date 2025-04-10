@@ -1,5 +1,4 @@
 const taskButtons = {};
-
 function loadTask(){
     fetch('../controller/AJAX_load_task.php')
         .then(response => response.json())
@@ -7,15 +6,12 @@ function loadTask(){
             if(resposta.tarefas){
                 const taskList = document.getElementById('tasks');
                 const tarefas = resposta.tarefas
-
                 taskList.innerHTML = '';
-
                 modal.close();
                 tarefas.forEach(tarefa => {
                     let newTaskList = document.createElement('div');
                     newTaskList.setAttribute('data-token', tarefa.token_task);
                     newTaskList.setAttribute('class', 'task');
-
                     const button_delete = document.createElement('button');
                     button_delete.textContent = 'Excluir'; 
                     button_delete.addEventListener('click', () => {
@@ -30,7 +26,6 @@ function loadTask(){
                         modal.showModal();
                         document.getElementById('form-cadastro-task').setAttribute('data-action', 'update');
                         document.getElementById('dialog-modal').setAttribute('dialog-token', tarefa.token_task);
-
                         document.getElementById('titulo-task').value = tarefa.titulo;
                         document.getElementById('descricao-task').value = tarefa.descricao;
                         document.getElementById('data_limite').value = tarefa.data_limite;
@@ -107,11 +102,9 @@ function updateTask(token){
                         modal.showModal();
                         document.getElementById('form-cadastro-task').setAttribute('data-action', 'update');
                         document.getElementById('dialog-modal').setAttribute('dialog-token', token);
-
                         document.getElementById('titulo-task').value = resposta.tarefa.titulo;
                         document.getElementById('descricao-task').value = resposta.tarefa.descricao;
-                        document.getElementById('data_limite').value = resposta.tarefa.data_limite;
-                        
+                        document.getElementById('data_limite').value = resposta.tarefa.data_limite; 
                 }
                 reordearTasks();
             }

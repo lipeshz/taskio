@@ -13,6 +13,15 @@ class UsuarioDAO{
         return $pdo->lastInsertId();
     }
 
+    public function buscarPorId($id){
+        $pdo = Database::getInstance()->getPDO();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function buscarPorEmail($email){
         $pdo = Database::getInstance()->getPDO();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
@@ -22,8 +31,23 @@ class UsuarioDAO{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function atualizarUsuario($usuario){
+        $pdo = Database::getInstance()->getPDO();
+        $stmt = $pdo->prepare("UPDATE usuario SET nome = :nome, email = :email WHERE id_usuario = :id");
+        $stmt->bindValue(':nome', $usuario['nome']);
+        $stmt->bindValue(':email', $usuario['email']);
+        $stmt->bindValue(':id', $usuario['id_usuario']);
+        $stmt->execute();
+    }
+
+    public function atualizarSenha($usuario){
+        $pdo = Database::getInstance()->getPDO();
+        $stmt = $pdo->prepare("UPDATE usuario SET senha = :senha WHERE id_usuario = :id");
+        $stmt->bindValue(':senha', $usuario['senha']);
+        $stmt->bindValue(':id', $usuario['id_usuario']);
+        $stmt->execute();
+    }
     //Delete user
-    //Update user
     
 }
 ?>
