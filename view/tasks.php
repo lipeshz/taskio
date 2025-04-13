@@ -49,6 +49,8 @@ if(!isset($_SESSION['id_usuario'])){
         <script src="../js/AJAX_load_task.js"></script>
         <script src="../js/open_modal.js"></script>
         <script src="../js/AJAX_cadastro_task.js"></script>
-        
+        <?php 
+            require('../utils/req_footer.php');
+        ?>
     </body>
 </html>

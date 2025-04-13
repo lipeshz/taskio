@@ -25,6 +25,9 @@ if(isset($_SESSION['id_usuario'])){
             <input type="submit" value="ENTRAR">
             <p>Não possui uma conta? <a href="cadastro_usuario.php">Crie uma!</a></p>
        </form> 
+        <?php 
+            require('../utils/req_footer.php');
+        ?>
     </body>
     <script src="../js/AJAX_login.js"></script>
 </html>

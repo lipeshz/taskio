@@ -47,5 +47,8 @@ if(!isset($_SESSION['id_usuario'])){
         </form>
 
         <script src="../js/perfil.js"></script>
+        <?php 
+            require('../utils/req_footer.php');
+        ?>
     </body>
 </html>

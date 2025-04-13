@@ -16,5 +16,8 @@ if(isset($_SESSION['id_usuario'])){
 <body>
     <a href="cadastro_usuario.php">CADASTRO</a>
     <a href="login.php">ENTRAR</a>
+    <?php 
+        require('../utils/req_footer.php');
+    ?>
 </body>
 </html>
